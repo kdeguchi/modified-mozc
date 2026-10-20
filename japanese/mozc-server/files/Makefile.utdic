@@ -1,0 +1,50 @@
+_UTDIC=	0
+
+.for utopt in ${OPTIONS_GROUP_UTDIC}
+. if ${PORT_OPTIONS:M${utopt}}
+_UTDIC=	1
+. endif
+.endfor
+
+.if ${_UTDIC} == 1
+
+MASTER_SITES+=	http://download.wikimedia.org/jawiki/20261001/:jawiki_index
+DISTFILES+=	jawiki-20261001-pages-articles-multistream-index.txt.bz2:jawiki_index
+GH_TUPLE+=	utuhiro78:merge-ut-dictionaries:6239884:ut
+
+EXTRACT_ONLY+=	${DISTFILE_ut}
+
+.if ${PORT_OPTIONS:MNEOLOGD} || ${PORT_OPTIONS:MPERSONALNAME} || \
+	${PORT_OPTIONS:MPLACENAME} || ${PORT_OPTIONS:MSUDACHIDICT}
+LICENSE+=	APACHE20
+LICENSE_DISTFILES_APACHE20=	${DISTFILE_ut} \
+		${DISTFILE_neologd} \
+		${DISTFILE_personal} \
+		${DISTFILE_place}
+.endif
+.if ${PORT_OPTIONS:MEDICT2} || ${PORT_OPTIONS:MJAWIKI}
+LICENSE+=	CC-BY-SA-4.0
+LICENSE_DISTFILES_CC-BY-SA-4.0=	${DISTFILE_edict2} \
+		${DISTFILE_jawiki}
+.endif
+.if ${PORT_OPTIONS:MALTCANNADIC} || ${PORT_OPTIONS:MSKKJISYO}
+LICENSE+=	GPLv2
+LICENSE_DISTFILES_GPLv2=	${DISTFILE_altcannadic} \
+		${DISTFILE_skkjisyo}
+.endif
+
+post-patch-utdic:
+	@${ECHO_MSG} "===> Creating mozcdic-ut.txt for UT Dictionary. It takes a long time!"
+	cd ${WRKSRC_ut}/src/merge && \
+		${PATCH} < ${PATCHDIR}/extra-patch-merge_dictionaries.py && \
+		${REINPLACE_CMD} -e 's@%%WRKSRC%%@${WRKSRC}@' merge_dictionaries.py && \
+		${RLN} ${BUILD_WRKSRC}/data/dictionary_oss/id.def . && \
+		${CP} ${DISTDIR}/${DIST_SUBDIR}/${DISTFILES:M*\:jawiki_index:C@:jawiki_index@@} jawiki-latest-pages-articles-multistream-index.txt.bz2 && \
+		${BZCAT} ../../../mozcdic-ut-*/mozcdic-ut-*.txt.bz2 > mozcdic-ut.txt && \
+		${PYTHON_CMD} merge_dictionaries.py mozcdic-ut.txt && \
+		${CAT} mozcdic-ut.txt \
+			>> ${BUILD_WRKSRC}/data/dictionary_oss/dictionary00.txt
+
+post-patch: post-patch-utdic
+
+.endif
