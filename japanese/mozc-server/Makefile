@@ -41,46 +41,7 @@ MAKE_ENV+=	JAVA_HOME=${JAVA_HOME:Q}
 .if ${BUILD_MOZC_LIST:Mmozc_server} == "mozc_server"
 PKGNAMEPREFIX=	ja-
 PKGNAMESUFFIX=	-server
-
-OPTIONS_GROUP=	UTDIC
-OPTIONS_GROUP_UTDIC=	ALTCANNADIC EDICT2 JAWIKI NEOLOGD PERSONALNAME \
-			PLACENAME SKKJISYO SUDACHIDICT
-OPTIONS_DEFAULT=	JAWIKI PERSONALNAME PLACENAME SUDACHIDICT
-
-ALTCANNADIC_DESC=	Dictionary from Alt-Cannadic
-EDICT2_DESC=		Dictionary from EDICT2
-JAWIKI_DESC=		Dictionary from Japanese Wikipedia
-NEOLOGD_DESC=		Dictionary from NEologd
-PERSONALNAME_DESC=	Personal Name Dictionary
-PLACENAME_DESC=		Place Name Dictionary
-SKKJISYO_DESC=		Dictionary from from SKK-JISYO
-SUDACHIDICT_DESC=	Dictionary from SudachiDict
-UTDIC_DESC=		Additional UT Dictionaries
-
-# GPLv2
-ALTCANNADIC_GH_TUPLE=	utuhiro78:mozcdic-ut-alt-cannadic:0e23741:altcannadic
-# CC-BY-SA-4.0
-EDICT2_GH_TUPLE=	utuhiro78:mozcdic-ut-edict2:8fe8f79:edict2
-JAWIKI_GH_TUPLE=	utuhiro78:mozcdic-ut-jawiki:57af6ad:jawiki
-# APACHE20
-NEOLOGD_GH_TUPLE=	utuhiro78:mozcdic-ut-neologd:e33ac4c:neologd
-# APACHE20
-PERSONALNAME_GH_TUPLE=	utuhiro78:mozcdic-ut-personal-names:b557dd4:personal
-# APACHE20
-PLACENAME_GH_TUPLE=	utuhiro78:mozcdic-ut-place-names:98cf8e9:place
-# APACHE20 GPLv2
-SKKJISYO_GH_TUPLE=	utuhiro78:mozcdic-ut-skk-jisyo:384ad92:skkjisyo
-# APACHE20
-SUDACHIDICT_GH_TUPLE=	utuhiro78:mozcdic-ut-sudachidict:13129dd:sudachi
-
-ALTCANNADIC_EXTRACT_ONLY=	${DISTFILE_altcannadic}
-EDICT2_EXTRACT_ONLY=	${DISTFILE_edict2}
-JAWIKI_EXTRACT_ONLY=	${DISTFILE_jawiki}
-NEOLOGD_EXTRACT_ONLY=	${DISTFILE_neologd}
-PERSONALNAME_EXTRACT_ONLY=	${DISTFILE_personal}
-PLACENAME_EXTRACT_ONLY=	${DISTFILE_place}
-SKKJISYO_EXTRACT_ONLY=	${DISTFILE_skkjisyo}
-SUDACHIDICT_EXTRACT_ONLY=	${DISTFILE_sudachi}
+.include "Makefile.utdic-distfiles"
 .elif ${BUILD_MOZC_LIST:Mmozc_tool} == "mozc_tool"
 USES+=		gl qt:6
 USE_GL=		gl

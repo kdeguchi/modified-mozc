@@ -1,37 +1,40 @@
 _UTDIC=	0
 
 .for utopt in ${OPTIONS_GROUP_UTDIC}
-. if ${PORT_OPTIONS:M${utopt}}
+. if ${PORT_OPTIONS:M${utopt}} == ${utopt}
 _UTDIC=	1
+. elif make(makesum)
+GH_TUPLE+=	${${utopt}_GH_TUPLE}
 . endif
 .endfor
 
+.if ${_UTDIC} == 1 || make(makesum)
+MASTER_SITES+=	${UTDIC_MASTER_SITES}
+DISTFILES+=	${UTDIC_DISTFILES}
+GH_TUPLE+=	${UTDIC_GH_TUPLE}
+EXTRACT_ONLY+=	${UTDIC_EXTRACT_ONLY}
+.endif
+
 .if ${_UTDIC} == 1
 
-MASTER_SITES+=	http://download.wikimedia.org/jawiki/20261001/:jawiki_index
-DISTFILES+=	jawiki-20261001-pages-articles-multistream-index.txt.bz2:jawiki_index
-GH_TUPLE+=	utuhiro78:merge-ut-dictionaries:6239884:ut
-
-EXTRACT_ONLY+=	${DISTFILE_ut}
-
-.if ${PORT_OPTIONS:MNEOLOGD} || ${PORT_OPTIONS:MPERSONALNAME} || \
+. if ${PORT_OPTIONS:MNEOLOGD} || ${PORT_OPTIONS:MPERSONALNAME} || \
 	${PORT_OPTIONS:MPLACENAME} || ${PORT_OPTIONS:MSUDACHIDICT}
 LICENSE+=	APACHE20
 LICENSE_DISTFILES_APACHE20=	${DISTFILE_ut} \
 		${DISTFILE_neologd} \
 		${DISTFILE_personal} \
 		${DISTFILE_place}
-.endif
-.if ${PORT_OPTIONS:MEDICT2} || ${PORT_OPTIONS:MJAWIKI}
+. endif
+. if ${PORT_OPTIONS:MEDICT2} || ${PORT_OPTIONS:MJAWIKI}
 LICENSE+=	CC-BY-SA-4.0
 LICENSE_DISTFILES_CC-BY-SA-4.0=	${DISTFILE_edict2} \
 		${DISTFILE_jawiki}
-.endif
-.if ${PORT_OPTIONS:MALTCANNADIC} || ${PORT_OPTIONS:MSKKJISYO}
+. endif
+. if ${PORT_OPTIONS:MALTCANNADIC} || ${PORT_OPTIONS:MSKKJISYO}
 LICENSE+=	GPLv2
 LICENSE_DISTFILES_GPLv2=	${DISTFILE_altcannadic} \
 		${DISTFILE_skkjisyo}
-.endif
+. endif
 
 post-patch-utdic:
 	@${ECHO_MSG} "===> Creating mozcdic-ut.txt for UT Dictionary. It takes a long time!"
