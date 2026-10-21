@@ -46,7 +46,7 @@ post-extract-mozc-licenses:
 	${TAR} -xOf \
 	    ${DISTDIR}/${DIST_SUBDIR}/protobuf-34.1.bazel.tar.gz \
 	    protobuf-34.1/LICENSE \
-	    | ${CAT} >> ${WRKDIR}/LICENSE.BSD3CLAUSE
+	    >> ${WRKDIR}/LICENSE.BSD3CLAUSE
 	${TAR} -xOf \
 	    ${DISTDIR}/${DIST_SUBDIR}/abseil-cpp-20260107.1.tar.gz \
 	    abseil-cpp-20260107.1/LICENSE \
