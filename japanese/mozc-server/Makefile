@@ -58,6 +58,16 @@ PLACENAME_DESC=		Place Name Dictionary
 SKKJISYO_DESC=		Dictionary from from SKK-JISYO
 SUDACHIDICT_DESC=	Dictionary from SudachiDict
 UTDIC_DESC=		Additional UT Dictionaries
+
+ALTCANNADIC_EXTRACT_ONLY=	${DISTFILE_altcannadic}
+EDICT2_EXTRACT_ONLY=		${DISTFILE_edict2}
+JAWIKI_EXTRACT_ONLY=		${DISTFILE_jawiki}
+NEOLOGD_EXTRACT_ONLY=		${DISTFILE_neologd}
+PERSONALNAME_EXTRACT_ONLY=	${DISTFILE_personal}
+PLACENAME_EXTRACT_ONLY=		${DISTFILE_place}
+SKKJISYO_EXTRACT_ONLY=		${DISTFILE_skkjisyo}
+SUDACHIDICT_EXTRACT_ONLY=	${DISTFILE_sudachi}
+UTDIC_EXTRACT_ONLY=		${DISTFILE_ut}
 #############################
 .elif ${BUILD_MOZC_LIST:Mmozc_tool} == "mozc_tool"
 USES+=		gl qt:6
