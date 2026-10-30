@@ -59,6 +59,20 @@ SKKJISYO_DESC=		Dictionary from from SKK-JISYO
 SUDACHIDICT_DESC=	Dictionary from SudachiDict
 UTDIC_DESC=		Additional UT Dictionaries
 
+UTDIC_GH_TUPLE=		utuhiro78:merge-ut-dictionaries:6239884:ut
+ALTCANNADIC_GH_TUPLE=	utuhiro78:mozcdic-ut-alt-cannadic:0e23741:altcannadic
+EDICT2_GH_TUPLE=	utuhiro78:mozcdic-ut-edict2:8fe8f79:edict2
+JAWIKI_GH_TUPLE=	utuhiro78:mozcdic-ut-jawiki:57af6ad:jawiki
+NEOLOGD_GH_TUPLE=	utuhiro78:mozcdic-ut-neologd:e33ac4c:neologd
+PERSONALNAME_GH_TUPLE=	utuhiro78:mozcdic-ut-personal-names:b557dd4:personal
+PLACENAME_GH_TUPLE=	utuhiro78:mozcdic-ut-place-names:98cf8e9:place
+SKKJISYO_GH_TUPLE=	utuhiro78:mozcdic-ut-skk-jisyo:384ad92:skkjisyo
+SUDACHIDICT_GH_TUPLE=	utuhiro78:mozcdic-ut-sudachidict:13129dd:sudachi
+UTDIC_GH_TUPLE=		utuhiro78:merge-ut-dictionaries:6239884:ut
+
+UTDIC_MASTER_SITES=	http://download.wikimedia.org/jawiki/20261001/:jawiki_index
+UTDIC_DISTFILES=	jawiki-20261001-pages-articles-multistream-index.txt.bz2:jawiki_index
+
 ALTCANNADIC_EXTRACT_ONLY=	${DISTFILE_altcannadic}
 EDICT2_EXTRACT_ONLY=		${DISTFILE_edict2}
 JAWIKI_EXTRACT_ONLY=		${DISTFILE_jawiki}
