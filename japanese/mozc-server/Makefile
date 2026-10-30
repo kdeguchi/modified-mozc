@@ -41,7 +41,24 @@ MAKE_ENV+=	JAVA_HOME=${JAVA_HOME:Q}
 .if ${BUILD_MOZC_LIST:Mmozc_server} == "mozc_server"
 PKGNAMEPREFIX=	ja-
 PKGNAMESUFFIX=	-server
-.include "Makefile.utdic-distfiles"
+#############################
+# UT dictionaries
+#############################
+OPTIONS_GROUP=		UTDIC
+OPTIONS_GROUP_UTDIC=	ALTCANNADIC EDICT2 JAWIKI NEOLOGD PERSONALNAME \
+			PLACENAME SKKJISYO SUDACHIDICT
+OPTIONS_DEFAULT=	JAWIKI PERSONALNAME PLACENAME SUDACHIDICT
+
+ALTCANNADIC_DESC=	Dictionary from Alt-Cannadic
+EDICT2_DESC=		Dictionary from EDICT2
+JAWIKI_DESC=		Dictionary from Japanese Wikipedia
+NEOLOGD_DESC=		Dictionary from NEologd
+PERSONALNAME_DESC=	Personal Name Dictionary
+PLACENAME_DESC=		Place Name Dictionary
+SKKJISYO_DESC=		Dictionary from from SKK-JISYO
+SUDACHIDICT_DESC=	Dictionary from SudachiDict
+UTDIC_DESC=		Additional UT Dictionaries
+#############################
 .elif ${BUILD_MOZC_LIST:Mmozc_tool} == "mozc_tool"
 USES+=		gl qt:6
 USE_GL=		gl
@@ -66,9 +83,6 @@ USES+=		gettext-tools
 .endif
 .if ${BUILD_MOZC_LIST:Mmozc_el} != "mozc_el" || make(makesum)
 . include "${FILESDIR}/Makefile.distfiles"
-. if ${BUILD_MOZC_LIST:Mmozc_server} == "mozc_server"
-. include "${FILESDIR}/Makefile.utdic"
-. endif
 .endif
 . include "${FILESDIR}/Makefile.licenses"
 
@@ -94,6 +108,8 @@ post-extract: post-extract-zipcode
 
 # mozc_server
 .if ${BUILD_MOZC_LIST:Mmozc_server} == "mozc_server" || make(makesum)
+
+.include "${FILESDIR}/Makefile.utdic"
 
 PLIST_FILES+=	bin/mozc \
 		bin/mozc_emacs_helper \
